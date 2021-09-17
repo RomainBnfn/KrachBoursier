@@ -1,0 +1,13 @@
+<div *ngIf="!hasData">
+  <mat-progress-spinner
+    class="example-margin"
+    [color]="'primary'"
+    [mode]="'indeterminate'"
+  >
+  </mat-progress-spinner>
+</div>
+<ul *ngIf="hasData" class="drink-list-ul list-unstyled">
+  <li *ngFor="let drink of drinks">
+    <app-drink-item [drink]="drink"></app-drink-item>
+  </li>
+</ul>

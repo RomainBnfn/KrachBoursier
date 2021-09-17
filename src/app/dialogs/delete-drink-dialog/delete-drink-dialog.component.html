@@ -1,0 +1,22 @@
+<form [formGroup]="deleteDrinkForm" (ngSubmit)="onSubmit()" class="form">
+  <h1 mat-dialog-title>Confirmez vous la supression ?</h1>
+
+  <div class="dialog-content-div" mat-dialog-content>
+    <p>En confirmant, vous supprimez la boisson :</p>
+    <p>
+      <b>{{ drinkName }} à {{ drinkPrice }}€</b>
+    </p>
+    <p>La suppression est définitive.</p>
+  </div>
+
+  <!-- Buttons -->
+  <div mat-dialog-actions>
+    <button mat-flat-button type="submit" color="primary">Confirmer</button>
+    <button mat-flat-button type="button" color="basic" (click)="onNoClick()">
+      Annuler
+    </button>
+  </div>
+</form>
+<!--type="submit"
+        class="btn btn-primary"
+        [disabled]="this.drinkForm.invalid"-->

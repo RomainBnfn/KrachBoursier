@@ -1,0 +1,122 @@
+<form [formGroup]="drinkForm" (ngSubmit)="onSubmit()" class="form">
+  <h1 mat-dialog-title>{{ title }}</h1>
+
+  <div class="dialog-content-div" mat-dialog-content>
+    <!-- Name-->
+    <mat-form-field appearance="fill">
+      <mat-label>Nom de la boisson</mat-label>
+      <input
+        matInput
+        name="name"
+        id="name"
+        formControlName="name"
+        type="text"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="name && name.invalid">{{
+        getMessageError(name)
+      }}</mat-error>
+    </mat-form-field>
+
+    <!-- Price-->
+    <mat-form-field appearance="fill">
+      <mat-label>Prix de la boisson</mat-label>
+      <input
+        matInput
+        name="price"
+        id="price"
+        formControlName="price"
+        type="number"
+        autocomplete="off"
+        required
+      />
+      <span matSuffix>€</span>
+      <mat-error *ngIf="price && price.invalid">{{
+        getMessageError(price)
+      }}</mat-error>
+    </mat-form-field>
+
+    <!-- Color -->
+    <mat-form-field appearance="fill">
+      <mat-label>Couleur de la courbe</mat-label>
+      <input
+        matInput
+        name="color"
+        id="color"
+        formControlName="color"
+        type="color"
+        autocomplete="off"
+        required
+      />
+      <mat-error *ngIf="color && color.invalid">{{
+        getMessageError(color)
+      }}</mat-error>
+    </mat-form-field>
+
+    <!-- Icon -->
+    <mat-form-field appearance="fill">
+      <mat-label>Icone de la boisson</mat-label>
+      <mat-select
+        name="icon"
+        id="icon"
+        formControlName="icon"
+        autocomplete="off"
+        required
+      >
+        <mat-select-trigger>
+          <img
+            class="icon"
+            [src]="'../../../assets/images/icons/icon-' + icon?.value + '.svg'"
+            [alt]="icon + ' icon'"
+          />
+        </mat-select-trigger>
+
+        <mat-option *ngFor="let icon of iconList" [value]="icon">
+          <img
+            class="icon"
+            [src]="'../../../assets/images/icons/icon-' + icon + '.svg'"
+            [alt]="icon + ' icon'"
+          />
+        </mat-option>
+      </mat-select>
+
+      <mat-error *ngIf="icon && icon.invalid">{{
+        getMessageError(icon)
+      }}</mat-error>
+    </mat-form-field>
+
+    <!-- Comment-->
+    <mat-form-field appearance="fill">
+      <mat-label>Commentaire ?</mat-label>
+      <input
+        matInput
+        name="comment"
+        id="comment"
+        formControlName="comment"
+        type="comment"
+        autocomplete="off"
+      />
+      <mat-error *ngIf="comment && comment.invalid">{{
+        getMessageError(comment)
+      }}</mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Buttons -->
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      type="submit"
+      color="primary"
+      [disabled]="this.drinkForm.invalid"
+    >
+      {{ submitBtnText }}
+    </button>
+    <button mat-flat-button type="button" color="basic" (click)="onNoClick()">
+      Annuler
+    </button>
+  </div>
+</form>
+<!--type="submit"
+        class="btn btn-primary"
+        [disabled]="this.drinkForm.invalid"-->

@@ -1,0 +1,19 @@
+<div class="admin-page-div">
+  <div class="action-div">
+    <button mat-raised-button color="primary" (click)="clickAddDrinkBtn()">
+      Ajouter une boisson
+    </button>
+
+    <button *ngIf="!isInKrash" mat-raised-button color="accent">
+      Déclencher un Krash
+    </button>
+    <button *ngIf="isInKrash" mat-raised-button color="accent">
+      Terminer le Krash
+    </button>
+  </div>
+  <br />
+  <app-drink-table
+    (onClickOnEditBtn)="clickEditDrinkBtn($event)"
+    (onClickOnDeleteBtn)="clickDeleteDrinkBtn($event)"
+  ></app-drink-table>
+</div>

@@ -1,0 +1,28 @@
+table {
+  width: 95vw;
+}
+
+.action-row-div {
+  width: 100px;
+  display: flex;
+  justify-content: space-between;
+}
+.icon-div {
+  width: 40px;
+  height: 40px;
+}
+.icon-div img {
+  width: 100%;
+}
+.color-col-div {
+  display: flex;
+  align-items: center;
+}
+.drink-color-span {
+  margin-left: 5px;
+}
+.small-square {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+}

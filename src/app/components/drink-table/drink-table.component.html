@@ -1,0 +1,79 @@
+<table mat-table [dataSource]="drinks" class="mat-elevation-z8">
+  <!--- Note that these columns can be defined in any order.
+        The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef>Nom</th>
+    <td mat-cell *matCellDef="let drink">{{ drink.name }}</td>
+  </ng-container>
+
+  <!-- Price Column -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef>Prix</th>
+    <td mat-cell *matCellDef="let drink">{{ drink.price }}</td>
+  </ng-container>
+
+  <!-- Color Column -->
+  <ng-container matColumnDef="color">
+    <th mat-header-cell *matHeaderCellDef>Couleur</th>
+    <td mat-cell *matCellDef="let drink">
+      <div class="color-col-div">
+        <div
+          class="small-square"
+          [style]="'background-color: ' + drink.color + ';'"
+        ></div>
+        <span class="drink-color-span"> ({{ drink.color }}) </span>
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Icon Column -->
+  <ng-container matColumnDef="icon">
+    <th mat-header-cell *matHeaderCellDef>Icone</th>
+    <td mat-cell *matCellDef="let drink">
+      <div class="icon-div">
+        <img
+          [src]="'../../../assets/images/icons/icon-' + drink.icon + '.svg'"
+          alt=""
+        />
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Comment Column -->
+  <ng-container matColumnDef="comment">
+    <th mat-header-cell *matHeaderCellDef>Commentaire</th>
+    <td mat-cell *matCellDef="let drink">{{ drink.comment }}</td>
+  </ng-container>
+
+  <!-- Action Column -->
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef>Action</th>
+    <td mat-cell *matCellDef="let drink">
+      <div class="action-row-div">
+        <button
+          mat-mini-fab
+          color="primary"
+          aria-label="Edit button"
+          (click)="clickOnEditBtn(drink)"
+        >
+          <mat-icon aria-hidden="false" aria-label="Edit Icon"> edit </mat-icon>
+        </button>
+        <button
+          mat-mini-fab
+          color="warn"
+          aria-label="Delete button"
+          (click)="clickOnDeleteBtn(drink)"
+        >
+          <mat-icon aria-hidden="false" aria-label="Delete Icon">
+            delete
+          </mat-icon>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
