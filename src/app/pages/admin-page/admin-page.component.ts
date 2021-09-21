@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteDrinkDialogComponent } from 'src/app/dialogs/delete-drink-dialog/delete-drink-dialog.component';
 import { EditAddDrinkDialogComponent } from 'src/app/dialogs/edit-add-drink-dialog/edit-add-drink-dialog.component';
+import { StartEndKrashDialogComponent } from 'src/app/dialogs/start-end-krash-dialog/start-end-krash-dialog.component';
 import DrinkData from 'src/app/models/drink-data';
 import { DrinkService } from 'src/app/services/drink.service';
 
@@ -54,7 +55,31 @@ export class AdminPageComponent implements OnInit {
     });
   }
 
+  clickStartEndKrashBtn() {
+    const dialogRef = this.MatDialog.open(StartEndKrashDialogComponent, {});
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result.drinks) {
+        this.drinkService.startEndKrash(result.drinks);
+      }
+    });
+  }
+
   public get isInKrash(): boolean {
     return this.drinkService.isInKrash;
+  }
+
+  public get krashBtnText(): string {
+    return this.isInKrash ? 'Arrêter le Krash' : 'Déclencher un Krash !';
+  }
+
+  public get krashState(): string {
+    return this.isInKrash
+      ? 'Un Krash est en cours !'
+      : 'Pas de Krash actuelement.';
+  }
+
+  public get krashColor(): string {
+    return this.isInKrash ? 'green' : 'red';
   }
 }

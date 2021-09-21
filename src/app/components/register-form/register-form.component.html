@@ -1,0 +1,118 @@
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form">
+  <mat-card class="">
+    <mat-card-header>
+      <mat-card-title>Inscription</mat-card-title>
+    </mat-card-header>
+
+    <mat-card-content class="content-div">
+      <!-- login-->
+      <mat-form-field appearance="standard">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          name="email"
+          id="email"
+          formControlName="email"
+          type="email"
+          autocomplete="off"
+          placeholder="jean.dupont@mail.fr"
+          required
+        />
+        <mat-error *ngIf="email && email.invalid">
+          {{ getMessageError(email) }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- login Confirmation -->
+      <mat-form-field appearance="standard">
+        <mat-label>Confirmez l'email</mat-label>
+        <input
+          matInput
+          name="emailConfirmation"
+          id="emailConfirmation"
+          formControlName="emailConfirmation"
+          type="email"
+          autocomplete="off"
+          placeholder="jean.dupont@mail.fr"
+          required
+        />
+        <mat-error *ngIf="emailConfirmation && emailConfirmation.invalid">
+          {{ getMessageError(emailConfirmation) }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password -->
+      <mat-form-field appearance="standard">
+        <mat-label>Mot de Passe</mat-label>
+        <input
+          matInput
+          name="password"
+          id="password"
+          formControlName="password"
+          [type]="hidePassword ? 'password' : 'text'"
+          autocomplete="off"
+          placeholder="******"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword"
+        >
+          <mat-icon>
+            {{ hidePassword ? "visibility_off" : "visibility" }}
+          </mat-icon>
+        </button>
+
+        <mat-error *ngIf="password && password.invalid">
+          {{ getMessageError(password) }}
+        </mat-error>
+      </mat-form-field>
+
+      <!-- Password  Confirmation-->
+      <mat-form-field appearance="standard">
+        <mat-label>Confirmez le mot de passe</mat-label>
+        <input
+          matInput
+          name="passwordConfirmation"
+          id="passwordConfirmation"
+          formControlName="passwordConfirmation"
+          [type]="hidePassword ? 'password' : 'text'"
+          autocomplete="off"
+          placeholder="******"
+          required
+        />
+        <button
+          mat-icon-button
+          matSuffix
+          (click)="hidePassword = !hidePassword"
+          [attr.aria-label]="'Hide password'"
+          [attr.aria-pressed]="hidePassword"
+        >
+          <mat-icon>
+            {{ hidePassword ? "visibility_off" : "visibility" }}
+          </mat-icon>
+        </button>
+        <mat-error *ngIf="passwordConfirmation && passwordConfirmation.invalid">
+          {{ getMessageError(passwordConfirmation) }}
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-actions class="actions-div">
+      <mat-error *ngIf="registerForm.invalid">
+        {{ getMessageError(registerForm) }}
+      </mat-error>
+      <button
+        mat-flat-button
+        type="submit"
+        color="primary"
+        [disabled]="registerForm.invalid"
+      >
+        Inscription
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</form>

@@ -21,10 +21,8 @@ export class DrinkItemComponent implements OnInit {
   ngOnInit(): void {}
 
   public get iconSrc(): string {
-    return '../../../assets/images/icons/icon-' + this.drink.icon + '.svg';
-  }
-
-  public get colorStyle(): string {
-    return 'background-color: ' + this.drink.color;
+    if (this.drink.icon)
+      return '../../../assets/images/icons/icon-' + this.drink.icon + '.svg';
+    return '';
   }
 }

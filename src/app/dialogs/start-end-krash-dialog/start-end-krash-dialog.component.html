@@ -1,0 +1,43 @@
+<form [formGroup]="krashForm" (ngSubmit)="onSubmit()" class="form">
+  <h1 mat-dialog-title>{{ title }}</h1>
+
+  <div class="dialog-content-div" mat-dialog-content>
+    Définissez les nouveaux prix :
+    <ul class="list-unstyled">
+      <li *ngFor="let drink of drinks">
+        <!-- Price-->
+        <mat-form-field appearance="fill">
+          <mat-label>Prix de : {{ drink.name }}</mat-label>
+          <input
+            matInput
+            [name]="drink.name"
+            [id]="drink.name"
+            [formControlName]="drink.name"
+            type="number"
+            autocomplete="off"
+            required
+          />
+          <span matSuffix>€</span>
+          <mat-error *ngIf="getField(drink.name)?.invalid">{{
+            getMessageError()
+          }}</mat-error>
+        </mat-form-field>
+      </li>
+    </ul>
+  </div>
+
+  <!-- Buttons -->
+  <div mat-dialog-actions>
+    <button
+      mat-flat-button
+      type="submit"
+      color="primary"
+      [disabled]="this.krashForm.invalid"
+    >
+      Valider
+    </button>
+    <button mat-flat-button type="button" color="basic" (click)="onNoClick()">
+      Annuler
+    </button>
+  </div>
+</form>

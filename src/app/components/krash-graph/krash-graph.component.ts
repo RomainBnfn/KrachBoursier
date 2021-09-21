@@ -19,6 +19,15 @@ export class KrashGraphComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  dateTickFormatting(val: any): string {
+    if (val instanceof Date) {
+      let hours = val.getHours();
+      let minutes = val.getMinutes();
+      let min = minutes < 10 ? '0' + minutes : minutes;
+      return hours + ':' + min;
+    }
+    return '';
+  }
   public get data(): DrinkSerieData[] {
     return this.drinkService.drinkSerieData;
   }

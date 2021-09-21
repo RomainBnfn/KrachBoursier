@@ -1,9 +1,5 @@
 <mat-card class="drink-card">
   <mat-card-header>
-    <div class="card-img-top" [style]="colorStyle"></div>
-  </mat-card-header>
-
-  <mat-card-header>
     <mat-card-title>{{ drink.name }}</mat-card-title>
     <mat-card-subtitle>{{ drink.comment }}</mat-card-subtitle>
   </mat-card-header>
@@ -11,10 +7,13 @@
   <mat-card-content class="drink-card-content">
     <div class="drink-icon-div">
       <img [src]="iconSrc" alt="" />
-      <h2 class="card-text">{{ drink.price }}€</h2>
     </div>
+    <h2 class="card-text">{{ drink.price }}€</h2>
   </mat-card-content>
   <mat-card-footer>
-    <div class="card-img-bottom" [style]="colorStyle"></div>
+    <div
+      class="card-img-bottom"
+      [style]="'background-color: ' + this.drink.color"
+    ></div>
   </mat-card-footer>
 </mat-card>

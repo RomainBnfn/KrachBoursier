@@ -12,14 +12,18 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Firebase
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
+import {
+  provideFirebaseApp,
+  initializeApp,
+  FirebaseApp,
+} from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
 import {
   connectDatabaseEmulator,
   getDatabase,
   provideDatabase,
 } from '@angular/fire/database';
-
+import { Auth, provideAuth } from '@angular/fire/auth';
 // Components
 import { KrashGraphComponent } from './components/krash-graph/krash-graph.component';
 import { ViewPageComponent } from './pages/view-page/view-page.component';
@@ -47,6 +51,14 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteDrinkDialogComponent } from './dialogs/delete-drink-dialog/delete-drink-dialog.component';
 import { EditAddDrinkDialogComponent } from './dialogs/edit-add-drink-dialog/edit-add-drink-dialog.component';
 import { DrinkTableComponent } from './components/drink-table/drink-table.component';
+import { AuthService } from './services/auth.service';
+import { getAuth } from '@firebase/auth';
+import { StartEndKrashDialogComponent } from './dialogs/start-end-krash-dialog/start-end-krash-dialog.component';
+import { AuthGuardService } from './services/auth-guard.service';
+import { Router } from '@angular/router';
+import { LoginFormComponent } from './components/login-form/login-form.component';
+import { RegisterFormComponent } from './components/register-form/register-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,10 +73,23 @@ import { DrinkTableComponent } from './components/drink-table/drink-table.compon
     DeleteDrinkDialogComponent,
     EditAddDrinkDialogComponent,
     DrinkTableComponent,
+    StartEndKrashDialogComponent,
+    LoginFormComponent,
+    RegisterFormComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    provideFirebaseApp(() => initializeApp(environment.firebase.config)),
+    provideFirestore(() => getFirestore()),
+    provideDatabase(() => {
+      const database = getDatabase();
+      if (environment.useEmulators) {
+        connectDatabaseEmulator(database, 'localhost', 9000);
+      }
+      return database;
+    }),
+    provideAuth(() => getAuth()),
     NgxChartsModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -80,18 +105,18 @@ import { DrinkTableComponent } from './components/drink-table/drink-table.compon
     FormsModule,
     ReactiveFormsModule,
     MatSelectModule,
-    provideFirebaseApp(() => initializeApp(environment.firebase.config)),
-    provideFirestore(() => getFirestore()),
-    provideDatabase(() => {
-      const database = getDatabase();
-      if (environment.useEmulators) {
-        connectDatabaseEmulator(database, 'localhost', 9000);
-      }
-      return database;
-    }),
     NgbModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthService,
+      deps: [Auth],
+    },
+    {
+      provide: AuthGuardService,
+      deps: [Auth, AuthService],
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

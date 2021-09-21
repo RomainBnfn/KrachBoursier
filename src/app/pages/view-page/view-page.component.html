@@ -1,7 +1,15 @@
 <div id="page-view-div">
+  <mat-card class="logo-div">
+    <img src="../../../assets/images/logo/logo-i2c.png" alt="Logo d'i2c" />
+  </mat-card>
+  <br />
+  <!---->
   <app-drink-list></app-drink-list>
-
-  <div class="graph-div">
-    <app-krash-graph></app-krash-graph>
-  </div>
+  <!---->
+  <mat-card class="graph-card">
+    <mat-card-content>
+      <app-krash-graph></app-krash-graph>
+    </mat-card-content>
+  </mat-card>
+  <h1 *ngIf="isInKrash">WWWOOOOW LE KRASSSHHH !!</h1>
 </div>

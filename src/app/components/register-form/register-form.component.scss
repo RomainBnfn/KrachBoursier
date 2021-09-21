@@ -1,0 +1,15 @@
+.content-div {
+  display: flex;
+  flex-direction: column;
+}
+.actions-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+}

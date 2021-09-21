@@ -12,6 +12,7 @@
         formControlName="name"
         type="text"
         autocomplete="off"
+        required
       />
       <mat-error *ngIf="name && name.invalid">{{
         getMessageError(name)

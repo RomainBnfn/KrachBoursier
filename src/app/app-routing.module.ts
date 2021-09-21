@@ -3,11 +3,20 @@ import { RouterModule, Routes } from '@angular/router';
 import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import { ViewPageComponent } from './pages/view-page/view-page.component';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
-  { path: '', component: HomePageComponent },
-  { path: 'view', component: ViewPageComponent },
-  { path: 'admin', component: AdminPageComponent },
+  { path: '', component: HomePageComponent, canActivate: [AuthGuardService] },
+  {
+    path: 'view',
+    component: ViewPageComponent,
+    canActivate: [AuthGuardService],
+  },
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+    canActivate: [AuthGuardService],
+  },
   { path: '**', redirectTo: '' },
 ];
 

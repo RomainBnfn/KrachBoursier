@@ -153,6 +153,22 @@ export class DrinkService {
     return update(ref(this.database), updates);
   }
 
+  startEndKrash(drinks: DrinkData[]) {
+    // Get a new ID for the new period that will be created
+    const newID = push(child(ref(this.database), 'periods')).key;
+
+    let period = {
+      date: Date.now(),
+      isKrash: !this.isInKrash,
+      drinks: drinks,
+    };
+
+    let updates: any = {};
+    updates['/periods/' + newID] = period;
+
+    return update(ref(this.database), updates);
+  }
+
   addData = (dateMs: number | undefined) => {
     let date: Date;
     let period: Period;

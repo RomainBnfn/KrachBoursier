@@ -6,7 +6,23 @@
 .action-div {
   display: flex;
   width: 95vw;
+  align-items: center;
 }
 .action-div button {
   margin-right: 10px;
+}
+.krash-state {
+  height: 10px !important;
+  width: 10px !important;
+  border-radius: 50% !important;
+  margin-right: 8px;
+}
+.krash-state-div {
+  display: flex;
+  align-items: center;
+}
+
+.drink-div,
+.option-div {
+  width: 95vw;
 }
