@@ -1,0 +1,49 @@
+<mat-card>
+  <div class="form">
+    <!--
+
+   
+    <h2>Options du Graph</h2>
+
+    <span>Ne fonctionne pas encore.</span>
+    <form class="graph-option-div">
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Période du graph (min)</mat-label>
+        <input matInput type="number" placeholder="5" value="5" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Nombre de Points</mat-label>
+        <input matInput type="number" placeholder="150" value="150" />
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Variations</mat-label>
+        <input matInput type="number" placeholder="0.03" value="0.03" />
+        <span matSuffix>€</span>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary">Valider</button>
+    </form>
+ -->
+    <h2>Options diverses</h2>
+    <mat-slide-toggle
+      color="primary"
+      [checked]="playSound"
+      (change)="changeSoundOption()"
+    >
+      Jouer le son lors d'un Krach
+    </mat-slide-toggle>
+
+    <h2>Actions générales</h2>
+    <button mat-raised-button color="warn" (click)="clickOnCleanHistory()">
+      Effacer l'historique
+    </button>
+    <p>
+      Permet de supprimer l'historique de toutes les modifications passées et de
+      ne garder que la carte actuelle.
+      <br />
+      <b>Attention, ne demande pas encore de confirmation.</b>
+    </p>
+  </div>
+</mat-card>

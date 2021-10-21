@@ -78,7 +78,6 @@ export class AuthService {
     for (let index in data) {
       this.allowedUsers = [...this.allowedUsers, index];
     }
-    console.log(this.allowedUsers);
   };
 
   public isAllowed(user: User | undefined): boolean {

@@ -32,7 +32,7 @@ export class HeaderComponent implements OnInit {
       case '/admin':
         return 'Administration';
       case '/view':
-        return 'Krash Boursier - ' + 'i2c'; // + Name
+        return 'Krach Boursier - ' + 'i2c'; // + Name
     }
     return '';
   }

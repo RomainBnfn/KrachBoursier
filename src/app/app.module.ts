@@ -37,6 +37,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthService } from './services/auth.service';
@@ -61,6 +62,8 @@ import { DrinkTableComponent } from './components/drink-table/drink-table.compon
 import { RegisterFormComponent } from './components/register-form/register-form.component';
 import { KrashIconComponent } from './components/krash-icon/krash-icon.component';
 import { FireDatabaseService } from './services/fire-database.service';
+import { GraphService } from './services/graph.service';
+import { AdminOptionsComponent } from './components/admin-options/admin-options.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +83,7 @@ import { FireDatabaseService } from './services/fire-database.service';
     LoginFormComponent,
     RegisterFormComponent,
     KrashIconComponent,
+    AdminOptionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -110,6 +114,7 @@ import { FireDatabaseService } from './services/fire-database.service';
     ReactiveFormsModule,
     MatSelectModule,
     NgbModule,
+    MatSlideToggleModule,
   ],
   providers: [
     {

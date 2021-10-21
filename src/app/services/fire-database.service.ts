@@ -18,7 +18,7 @@ import { GraphService } from './graph.service';
   providedIn: 'root',
 })
 export class FireDatabaseService {
-  constructor(private graphService: GraphService, private database: Database) {}
+  constructor(private database: Database) {}
 
   public listen(
     reference: string,

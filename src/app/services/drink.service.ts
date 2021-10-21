@@ -1,3 +1,4 @@
+import { templateJitUrl } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import {
   child,
@@ -11,6 +12,7 @@ import {
 import DrinkData from '../models/drink-data';
 import DrinkSerieData from '../models/drink-serie-data';
 import Period from '../models/period';
+import { FireDatabaseService } from './fire-database.service';
 import { GraphService } from './graph.service';
 
 @Injectable({
@@ -34,21 +36,33 @@ export class DrinkService {
   actualPeriod: Period = { drinks: [], date: new Date(), isKrash: true };
   //
   customColors: any = [];
-  timer;
+  timer: number | undefined;
+  //
+  playSound = true;
 
-  constructor(private graphService: GraphService, private database: Database) {
+  constructor(
+    private graphService: GraphService,
+    private database: Database,
+    private fireDatabaseService: FireDatabaseService
+  ) {
     //
-    const refPeriods = ref(this.database, 'periods');
-    onValue(refPeriods, this.updatePeriods);
-
-    this.timer = setInterval(this.addData, this.graphService.tickInterval);
+    this.fireDatabaseService.listen('periods', this.updatePeriods);
+    this.fireDatabaseService.listen('options', this.updateSoundOption);
+    this.lauchTimer();
   }
+
+  lauchTimer = () => {
+    clearInterval(this.timer);
+    this.timer = setInterval(this.addData, this.graphService.tickInterval);
+  };
 
   generateData() {
     let date = Date.now(); //ms
     let timespanTick = this.graphService.tickInterval;
     let pointAmount = this.graphService.pointAmount;
     //
+    this.drinkSerieData = [];
+
     for (let i = 0; i < pointAmount; i++) {
       //
       this.addData(date - timespanTick * (pointAmount - i));
@@ -70,8 +84,11 @@ export class DrinkService {
     const data = snapshot.val();
     let actual: Period | undefined = undefined;
     let lastPeriod = this.actualPeriod || undefined;
+    this.periods = [];
     //
+    let length = 0;
     for (let index in data) {
+      length++;
       let snapshotPeriod = data[index];
       let period = this.fromSnapshotToPeriod(snapshotPeriod);
       //
@@ -89,7 +106,7 @@ export class DrinkService {
     });
 
     // The app just has started
-    if (this.drinkSerieData.length == 0) {
+    if (length <= 1 || this.drinkSerieData.length == 0) {
       this.generateData();
     }
 
@@ -98,6 +115,17 @@ export class DrinkService {
       this.onStartKrash();
     }
   };
+
+  updateSoundOption = (snapshot: DataSnapshot) => {
+    const data = snapshot.val();
+    this.playSound = data['playSound'] ? true : false;
+  };
+
+  toogleSoundOption() {
+    let updates: any = {};
+    updates['/options/playSound'] = !this.playSound;
+    update(ref(this.database), updates);
+  }
 
   updateColors() {
     this.actualPeriod.drinks.forEach((drink: DrinkData) => {
@@ -188,6 +216,7 @@ export class DrinkService {
       period = this.actualPeriod;
     }
 
+    // For each drink
     for (let index in period.drinks) {
       let drink = period.drinks[index];
       // Can be a new one
@@ -241,16 +270,33 @@ export class DrinkService {
   };
 
   public onStartKrash() {
-    console.log('Starting audio...');
-    let audio = new Audio();
-    audio.src = '../../../assets/sounds/krach.wav';
-    audio.load();
-    audio.play();
+    if (this.playSound) {
+      console.log('Starting audio...');
+      let audio = new Audio();
+      audio.src = '../../../assets/sounds/krach.wav';
+      audio.load();
+      audio.play();
+    }
   }
 
   public isCorrectIconName(name: string): boolean {
     return this.correctIconName.filter((icon) => icon == name).length > 0;
   }
+
+  public cleanHistory = () => {
+    // Get a new ID for the new period that will be created
+    const newID = push(child(ref(this.database), 'periods')).key;
+
+    let period = this.actualPeriod;
+
+    let updates: any = {};
+    updates['/periods/'] = null;
+    update(ref(this.database), updates);
+
+    updates = {};
+    updates['/periods/' + newID] = period;
+    return update(ref(this.database), updates);
+  };
 
   public get hasData(): boolean {
     return this.actualPeriod.drinks.length > 0;

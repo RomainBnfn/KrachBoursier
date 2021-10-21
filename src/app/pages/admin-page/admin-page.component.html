@@ -1,8 +1,5 @@
 <div class="admin-page-div">
-  <div class="option-div">
-    <h1>Options générales</h1>
-    //
-  </div>
+  <!-- Gestion des Boisons -->
   <div class="drink-div">
     <h1>Gestion des boissons</h1>
     <div class="action-div">
@@ -32,5 +29,13 @@
       (onClickOnDeleteBtn)="clickDeleteDrinkBtn($event)"
     >
     </app-drink-table>
+  </div>
+
+  <br />
+
+  <!-- Options -->
+  <div class="option-div">
+    <h1>Options globales</h1>
+    <app-admin-options></app-admin-options>
   </div>
 </div>
