@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit {
 
   clickOnLogOut() {
     this.authService.signOut();
+    this.router.navigate(['/']);
   }
 
   public get url(): string {

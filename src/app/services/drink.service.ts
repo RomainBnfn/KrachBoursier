@@ -31,7 +31,7 @@ export class DrinkService {
   drinkSerieData: DrinkSerieData[] = [];
   //periods
   periods: Period[] = [];
-  actualPeriod: Period = { drinks: [], date: new Date(), isKrash: false };
+  actualPeriod: Period = { drinks: [], date: new Date(), isKrash: true };
   //
   customColors: any = [];
   timer;
@@ -69,6 +69,8 @@ export class DrinkService {
   updatePeriods = (snapshot: DataSnapshot) => {
     const data = snapshot.val();
     let actual: Period | undefined = undefined;
+    let lastPeriod = this.actualPeriod || undefined;
+    //
     for (let index in data) {
       let snapshotPeriod = data[index];
       let period = this.fromSnapshotToPeriod(snapshotPeriod);
@@ -89,6 +91,11 @@ export class DrinkService {
     // The app just has started
     if (this.drinkSerieData.length == 0) {
       this.generateData();
+    }
+
+    // Krash start
+    if (lastPeriod && !lastPeriod.isKrash && actual && actual.isKrash) {
+      this.onStartKrash();
     }
   };
 
@@ -232,6 +239,14 @@ export class DrinkService {
     }
     this.drinkSerieData = [...this.drinkSerieData]; // Needed to make the graph refresh
   };
+
+  public onStartKrash() {
+    console.log('Starting audio...');
+    let audio = new Audio();
+    audio.src = '../../../assets/sounds/krach.wav';
+    audio.load();
+    audio.play();
+  }
 
   public isCorrectIconName(name: string): boolean {
     return this.correctIconName.filter((icon) => icon == name).length > 0;

@@ -54,6 +54,7 @@
           placeholder="******"
           required
         />
+        <!-- 
         <button
           mat-icon-button
           matSuffix
@@ -65,6 +66,7 @@
             {{ hidePassword ? "visibility_off" : "visibility" }}
           </mat-icon>
         </button>
+      -->
 
         <mat-error *ngIf="password && password.invalid">
           {{ getMessageError(password) }}
@@ -84,6 +86,7 @@
           placeholder="******"
           required
         />
+        <!--
         <button
           mat-icon-button
           matSuffix
@@ -95,6 +98,7 @@
             {{ hidePassword ? "visibility_off" : "visibility" }}
           </mat-icon>
         </button>
+      -->
         <mat-error *ngIf="passwordConfirmation && passwordConfirmation.invalid">
           {{ getMessageError(passwordConfirmation) }}
         </mat-error>

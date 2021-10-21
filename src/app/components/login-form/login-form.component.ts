@@ -5,6 +5,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -18,7 +19,8 @@ export class LoginFormComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -31,7 +33,9 @@ export class LoginFormComponent implements OnInit {
   onSubmit(): void {
     const email = this.email?.value;
     const password = this.password?.value;
-    this.authService.signIn(email, password);
+    this.authService.signIn(email, password, () => {
+      this.router.navigate(['/view']);
+    });
   }
 
   public getMessageError(control: AbstractControl): string {

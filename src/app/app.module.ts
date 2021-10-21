@@ -24,15 +24,6 @@ import {
   provideDatabase,
 } from '@angular/fire/database';
 import { Auth, provideAuth } from '@angular/fire/auth';
-// Components
-import { KrashGraphComponent } from './components/krash-graph/krash-graph.component';
-import { ViewPageComponent } from './pages/view-page/view-page.component';
-import { HomePageComponent } from './pages/home-page/home-page.component';
-import { HeaderComponent } from './components/header/header.component';
-import { FooterComponent } from './components/footer/footer.component';
-import { DrinkItemComponent } from './components/drink-item/drink-item.component';
-import { DrinkListComponent } from './components/drink-list/drink-list.component';
-import { AdminPageComponent } from './pages/admin-page/admin-page.component';
 
 // Material
 import { MatCardModule } from '@angular/material/card';
@@ -48,16 +39,28 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { DeleteDrinkDialogComponent } from './dialogs/delete-drink-dialog/delete-drink-dialog.component';
-import { EditAddDrinkDialogComponent } from './dialogs/edit-add-drink-dialog/edit-add-drink-dialog.component';
-import { DrinkTableComponent } from './components/drink-table/drink-table.component';
 import { AuthService } from './services/auth.service';
 import { getAuth } from '@firebase/auth';
-import { StartEndKrashDialogComponent } from './dialogs/start-end-krash-dialog/start-end-krash-dialog.component';
 import { AuthGuardService } from './services/auth-guard.service';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+
+// Components
+import { KrashGraphComponent } from './components/krash-graph/krash-graph.component';
+import { ViewPageComponent } from './pages/view-page/view-page.component';
+import { HomePageComponent } from './pages/home-page/home-page.component';
+import { HeaderComponent } from './components/header/header.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { DrinkItemComponent } from './components/drink-item/drink-item.component';
+import { DrinkListComponent } from './components/drink-list/drink-list.component';
+import { AdminPageComponent } from './pages/admin-page/admin-page.component';
+import { DeleteDrinkDialogComponent } from './dialogs/delete-drink-dialog/delete-drink-dialog.component';
+import { EditAddDrinkDialogComponent } from './dialogs/edit-add-drink-dialog/edit-add-drink-dialog.component';
 import { LoginFormComponent } from './components/login-form/login-form.component';
+import { StartEndKrashDialogComponent } from './dialogs/start-end-krash-dialog/start-end-krash-dialog.component';
+import { DrinkTableComponent } from './components/drink-table/drink-table.component';
 import { RegisterFormComponent } from './components/register-form/register-form.component';
+import { KrashIconComponent } from './components/krash-icon/krash-icon.component';
+import { FireDatabaseService } from './services/fire-database.service';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
     StartEndKrashDialogComponent,
     LoginFormComponent,
     RegisterFormComponent,
+    KrashIconComponent,
   ],
   imports: [
     BrowserModule,
@@ -110,7 +114,7 @@ import { RegisterFormComponent } from './components/register-form/register-form.
   providers: [
     {
       provide: AuthService,
-      deps: [Auth],
+      deps: [FireDatabaseService, Auth],
     },
     {
       provide: AuthGuardService,

@@ -1,23 +1,20 @@
 <mat-toolbar *ngIf="!hidden" color="primary" class="nav-bar">
   <ul *ngIf="isAuth" class="list-pages list-unstyled">
     <li>
-      <a routerLink="/">
-        <button mat-raised-button color="basic" aria-label="Home Icon">
-          Accueil
-        </button>
-      </a>
-    </li>
-    <li>
       <a routerLink="/admin">
-        <button mat-raised-button color="basic" aria-label="Home Icon">
-          Administration
+        <button mat-mini-fab color="basic" aria-label="Home Icon">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">
+            settings
+          </mat-icon>
         </button>
       </a>
     </li>
     <li>
       <a routerLink="/view">
-        <button mat-raised-button color="basic" aria-label="Home Icon">
-          Visualisation
+        <button mat-mini-fab color="basic" aria-label="Home Icon">
+          <mat-icon aria-hidden="false" aria-label="Example home icon">
+            dashboard
+          </mat-icon>
         </button>
       </a>
     </li>
@@ -29,12 +26,14 @@
   <div>
     <button
       *ngIf="isAuth"
-      mat-raised-button
+      mat-mini-fab
       color="basic"
       aria-label="Home Icon"
       (click)="clickOnLogOut()"
     >
-      Deconnexion
+      <mat-icon aria-hidden="false" aria-label="Example home icon">
+        logout
+      </mat-icon>
     </button>
   </div>
 </mat-toolbar>

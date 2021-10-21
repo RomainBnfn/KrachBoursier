@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { user } from '@angular/fire/auth';
 import {
   ActivatedRouteSnapshot,
   CanActivate,
@@ -19,16 +20,15 @@ export class AuthGuardService implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    let ret: undefined | boolean = undefined;
+    let ret = false;
+    let user = this.authService.user;
 
     switch (route.routeConfig?.path) {
       // Need to be authenticated
       case 'admin':
       case 'view':
-        if (this.authService.isAuth) {
-          if (this.authService.user?.email == 'junior@ensc.fr') {
-            ret = true;
-          }
+        if (this.authService.isAllowed(user)) {
+          ret = true;
         }
         break;
 
@@ -36,9 +36,6 @@ export class AuthGuardService implements CanActivate {
       case '':
         ret = true;
         break;
-    }
-    if (!ret) {
-      ret = false;
     }
     return ret;
   }
